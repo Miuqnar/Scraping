@@ -1,12 +1,8 @@
 import os
 import re
-from pprint import pprint
-from typing import List, Any
-
 import requests
 import file_csv
 
-from pathlib import Path
 from bs4 import BeautifulSoup
 from constants import URL, DATA_DIR
 
