@@ -1,3 +1,4 @@
+import os
 import re
 from pprint import pprint
 from typing import List, Any
@@ -7,7 +8,7 @@ import file_csv
 
 from pathlib import Path
 from bs4 import BeautifulSoup
-from constants import URL
+from constants import URL, DATA_DIR
 
 
 def parser_html_content(url: str) -> BeautifulSoup | str:
@@ -111,9 +112,6 @@ def get_categories_url(categories_url: str) -> list[str]:
 def download_images(url: str) -> bool:
     """ Télécharger tous les images e sauvegarder dans un fichiers localement"""
 
-    # images = []
-    home = Path.cwd()
-
     categorie_urls = get_categories_url(url)
 
     for category_url in categorie_urls:
@@ -121,37 +119,16 @@ def download_images(url: str) -> bool:
 
         for category_info in category_infos:
             category_name = category_info['category']
-            # path = home / 'images' / category_name
-            # path.mkdir(parents=True, exist_ok=True)
+            csv_file_path = os.path.join(DATA_DIR, category_name, 'images', f"{category_info['title']}.jpg")
+            os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)  # si le fichier n'existe pas on le crée
 
             all_images = category_info['images']
             pprint(all_images)
             response = requests.get(all_images)  # télécharger l'image
 
-            # # Enregistrer l'image dans un fichier binaire
-            # file_path = f"{category_info['title']}.jpg"
-            # with open(path / file_path, 'wb') as image_file:
-            #     image_file.write(response.content)
-            #     print(f"Image_{file_path} téléchargée avec succès.")
-
-        # try:
-        #     for image_url in category_url:
-        #         all_images = image_url['images']
-        #         # images.extend(all_images)
-        #
-        #         response = requests.get(all_images)  # télécharger l'image
-        #
-        #         # Enregistrer l'image dans un fichier binaire
-        #         file_path = f"{category_name}.jpg"
-        #         with open(path / file_path, 'wb') as image_file:
-        #             image_file.write(response.content)
-        #             print(f"Image_{file_path} téléchargée avec succès.")
-        #
-        # except Exception as e:
-        #     print(f"Erreur lors du téléchargement de l'image: {e}")
+            # Enregistrer l'image dans un fichier binaire
+            with open(csv_file_path, 'wb') as image_file:
+                image_file.write(response.content)
 
     return True
 
-
-if __name__ == '__main__':
-    pprint(download_images(URL))
