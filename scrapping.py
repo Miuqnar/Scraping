@@ -28,7 +28,7 @@ def extract_book_information(url: str) -> dict:
         'category': tags_html.find("a", attrs={"href": re.compile("/category/books/")}).string,
         'title': tags_html.find('div', class_='product_main').find_next('h1').string,
         'price': tags_html.find('p', class_='price_color').string,
-        'stock': tags_html.find('p', class_='instock').text.strip(),
+        # 'stock': tags_html.find('p', class_='instock').text.strip(),
         'rating': tags_html.find('p', attrs={'class': 'star-rating'})['class'][-1].strip(),
         'images': tags_html.find('div', attrs={'id': 'product_gallery'}).find('img')['src'].replace('../../', f'{URL}/')
     }
@@ -40,8 +40,10 @@ def extract_book_information(url: str) -> dict:
 
     product_information = tags_html.find(string='Product Information')
     tables = product_information.find_next('table').find_all('tr')
+    tables.pop()
     for table in tables:
         th, td = [col.text.strip() for col in table.find_all(['th', 'td'])]
+
         if th and td:
             data[th] = td
 

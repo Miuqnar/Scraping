@@ -1,5 +1,6 @@
 import csv
 import os
+from pprint import pprint
 
 from constants import DATA_DIR
 
@@ -14,13 +15,15 @@ def save_books_csv(books_category: list[dict]) -> str:
     csv_file_path = os.path.join(DATA_DIR, category_name, f"{category_name}.csv")
     os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)  # si le fichier n'existe pas, on le crée
 
-    book_data_key = [key_boock for dict_boock in books_category for key_boock in dict_boock.keys()]
+    for book_data_key in books_category:
+        key_book = list(book_data_key.keys())
+        print(book_data_key)
 
-    with open(csv_file_path, 'w', encoding='UTF8', newline="") as file_csv:
-        file = csv.writer(file_csv)
-        file.writerow(book_data_key)
-        for book in books_category:
-            row_data = [book[i] for i in book_data_key]  # en extrair les valeurs des attributs du livre
-            file.writerow(row_data)
+        with open(csv_file_path, 'w', encoding='UTF8', newline="") as file_csv:
+            file = csv.writer(file_csv)
+            file.writerow(key_book)
+            for book in books_category:
+                row_data = [book[i] for i in key_book]  # en extrair les valeurs des attributs du livre
+                file.writerow(row_data)
 
     return 'Données enregistrées avec succès'
