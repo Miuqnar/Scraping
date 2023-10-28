@@ -1,27 +1,27 @@
 import os
 import re
-import requests
 import file_csv
 
 from bs4 import BeautifulSoup
-from constants import URL, DATA_DIR
+from constants import URL, DATA_DIR, SESSION
+from pprint import pprint
 
 
 def parser_html_content(url: str) -> BeautifulSoup | str:
     """Vérifie si l'URL renvoie une réponse avec le code statut 200 et Returne l'ensemble du contenu de la page HTML"""
 
     try:
-        response_url = requests.get(url)
+        response_url = SESSION.get(url)
         if response_url.status_code == 200:
             return BeautifulSoup(response_url.content, 'html.parser')
         else:
             return f"ERROR: Code de statut reçu {response_url.status_code}"
     except Exception as e:
-        return f"ERREUR : Problème avec l'URL: {e}"
+        return f"ERREUR: Problème avec l'URL: {e}"
 
 
 def extract_book_information(url: str) -> dict:
-    """Extration des information d'un livre """
+    """Extration des informations d'un livre """
 
     tags_html = parser_html_content(url)
     data = {
@@ -32,7 +32,7 @@ def extract_book_information(url: str) -> dict:
         'rating': tags_html.find('p', attrs={'class': 'star-rating'})['class'][-1].strip(),
         'images': tags_html.find('div', attrs={'id': 'product_gallery'}).find('img')['src'].replace('../../', f'{URL}/')
     }
-    # assigné tags_html.find(string='Product Description') a la variables description
+    # assigné tags_html.find(string='Product Description') a la variable description
     if description := tags_html.find(string='Product Description'):
         data['description'] = description.find_next('p').string
     else:
@@ -67,10 +67,9 @@ def get_the_page_number(page: str) -> int:
 
 def get_books_of_category(category_url: str) -> list[dict]:
     """Récupérer tous les livres d'une categorie"""
-
     books = []
 
-    page_number = get_the_page_number(category_url)
+    page_number = get_the_page_number(category_url)  # returne le nombre de page de la categorie
     for page in range(1, page_number + 1):
         if page_number == 1:
             url = category_url
@@ -106,7 +105,7 @@ def get_categories_url(categories_url: str) -> list[str]:
 
 
 def download_images(url: str) -> bool:
-    """ Télécharger tous les images e sauvegarder dans un fichiers localement"""
+    """ Télécharger toutess les images et sauvegarder dans un fichier local"""
 
     categorie_urls = get_categories_url(url)
 
@@ -116,15 +115,16 @@ def download_images(url: str) -> bool:
         for category_info in category_infos:
             category_name = category_info['category']
             csv_file_path = os.path.join(DATA_DIR, category_name, 'images', f"{category_info['title']}.jpg")
-            os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)  # si le fichier n'existe pas on le crée
+            os.makedirs(os.path.dirname(csv_file_path), exist_ok=True)  # si le fichier n'existe pas, on le crée
 
             all_images = category_info['images']
             pprint(all_images)
-            response = requests.get(all_images)  # télécharger l'image
+            response = SESSION.get(all_images)  # télécharger l'image
 
             # Enregistrer l'image dans un fichier binaire
             with open(csv_file_path, 'wb') as image_file:
                 image_file.write(response.content)
 
     return True
+
 

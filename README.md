@@ -22,6 +22,17 @@ __Lorsque le programme est lancé, l'utilisateur est saisi :
 * 2: Télécharger toutes les photos, de tous les livres de chaque catégorie
 * 3: Quitter le programme 
 
+### Exection du script
+
+*  Dans le terminal, placez vous dans le dossier scraping avec la command:
+```bash
+cd scraping
+```
+* Execution du script:
+```bash
+Python <version> main.py
+```
+
 ## Technologies utilisées:
 
 * Python 3.11.5
@@ -51,6 +62,11 @@ source .env/bin/activate
 #### Installer le Package que sont dans le fichier requirements.txt
 ```bash
 pip install -r requirements.txt
+```
+
+### Lancher le programme 
+```bash
+
 ```
 
 
