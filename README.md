@@ -20,7 +20,18 @@ __Lorsque le programme est lancé, l'utilisateur est saisi :
 
 * 1: Extraire les informations de tous les livres
 * 2: Télécharger toutes les photos, de tous les livres de chaque catégorie
-* 3: Quitter le programme 
+* 3: Quitter le programme
+
+### Exection du script
+
+*  Dans le terminal, placez vous dans le dossier scraping avec la command:
+```bash
+cd scraping
+```
+* Execution du script:
+```bash
+Python <version> main.py
+```
 
 ### Exection du script
 
