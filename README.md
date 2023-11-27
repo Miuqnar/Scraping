@@ -33,17 +33,6 @@ cd scraping
 Python <version> main.py
 ```
 
-### Exection du script
-
-*  Dans le terminal, placez vous dans le dossier scraping avec la command:
-```bash
-cd scraping
-```
-* Execution du script:
-```bash
-Python <version> main.py
-```
-
 ## Technologies utilisées:
 
 * Python 3.11.5
