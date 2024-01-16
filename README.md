@@ -13,37 +13,6 @@
 * Image
 * code universel des produits (UPC)
 
-## Fonctionnement du programme  
-__Lorsque le programme est lancé, l'utilisateur est saisi :
-
-        Choix:
-
-* 1: Extraire les informations de tous les livres
-* 2: Télécharger toutes les photos, de tous les livres de chaque catégorie
-* 3: Quitter le programme
-
-### Exection du script
-
-*  Dans le terminal, placez vous dans le dossier scraping avec la command:
-```bash
-cd scraping
-```
-* Execution du script:
-```bash
-Python <version> main.py
-```
-
-### Exection du script
-
-*  Dans le terminal, placez vous dans le dossier scraping avec la command:
-```bash
-cd scraping
-```
-* Execution du script:
-```bash
-Python <version> main.py
-```
-
 ## Technologies utilisées:
 
 * Python 3.11.5
@@ -70,15 +39,30 @@ python -m venv .env
 source .env/bin/activate
 ```
 
-#### Installer le Package que sont dans le fichier requirements.txt
+## Exection du script
+
+*  Dans le terminal, placez-vous dans le dossier scraping avec la command :
 ```bash
-pip install -r requirements.txt
+cd scraping
+```
+* Execution du script:
+```bash
+Python <version> main.py
 ```
 
-### Lancher le programme 
-```bash
 
-```
+## Fonctionnement du programme  
+__Lorsque le programme est lancé, l'utilisateur est saisi :
+
+* 1 : Extraire les informations de tous les livres
+* 2 : Télécharger toutes les photos, de tous les livres de chaque catégorie
+* 3 : Quitter le programme
+
+
+    Choix: <nombre>_
+
+
+
 
 
 
