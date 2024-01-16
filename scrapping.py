@@ -7,6 +7,7 @@ from constants import URL, DATA_DIR, SESSION
 from pprint import pprint
 
 
+
 def parser_html_content(url: str) -> BeautifulSoup | str:
     """Vérifie si l'URL renvoie une réponse avec le code statut 200 et Returne l'ensemble du contenu de la page HTML"""
 
@@ -23,13 +24,17 @@ def parser_html_content(url: str) -> BeautifulSoup | str:
 def extract_book_information(url: str) -> dict:
     """Extration des informations d'un livre """
 
+    rating_mapping = {'One': 1, 'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5}
+
     tags_html = parser_html_content(url)
     data = {
         'category': tags_html.find("a", attrs={"href": re.compile("/category/books/")}).string,
         'title': tags_html.find('div', class_='product_main').find_next('h1').string,
-        'price': tags_html.find('p', class_='price_color').string,
+        # 'price': tags_html.find('p', class_='price_color').string,
+        'price': float(re.search(r'\d+\.\d+', tags_html.find('p', class_='price_color').string).group()),
         # 'stock': tags_html.find('p', class_='instock').text.strip(),
-        'rating': tags_html.find('p', attrs={'class': 'star-rating'})['class'][-1].strip(),
+        # 'rating': tags_html.find('p', attrs={'class': 'star-rating'})['class'][-1].strip(),
+        'rating': rating_mapping.get(tags_html.find('p', attrs={'class': 'star-rating'})['class'][-1], 0),
         'images': tags_html.find('div', attrs={'id': 'product_gallery'}).find('img')['src'].replace('../../', f'{URL}/')
     }
     # assigné tags_html.find(string='Product Description') a la variable description
@@ -107,7 +112,7 @@ def get_categories_url(categories_url: str) -> list[str]:
 
 
 def download_images(url: str) -> bool:
-    """ Télécharger toutess les images et sauvegarder dans un fichier local"""
+    """ Télécharger toutes les images et sauvegarder dans un fichier local"""
 
     categorie_urls = get_categories_url(url)
 
@@ -130,3 +135,5 @@ def download_images(url: str) -> bool:
     return True
 
 
+# if __name__ == '__main__':
+#     pprint(extract_book_information('https://books.toscrape.com/catalogue/our-band-could-be-your-life-scenes-from-the-american-indie-underground-1981-1991_985/index.html'))

@@ -13,36 +13,7 @@
 * Image
 * code universel des produits (UPC)
 
-## Fonctionnement du programme  
-__Lorsque le programme est lancé, l'utilisateur est saisi :
 
-        Choix:
-
-* 1: Extraire les informations de tous les livres
-* 2: Télécharger toutes les photos, de tous les livres de chaque catégorie
-* 3: Quitter le programme
-
-### Exection du script
-
-*  Dans le terminal, placez vous dans le dossier scraping avec la command:
-```bash
-cd scraping
-```
-* Execution du script:
-```bash
-Python <version> main.py
-```
-
-### Exection du script
-
-*  Dans le terminal, placez vous dans le dossier scraping avec la command:
-```bash
-cd scraping
-```
-* Execution du script:
-```bash
-Python <version> main.py
-```
 
 ## Technologies utilisées:
 
@@ -54,6 +25,8 @@ Python <version> main.py
 * Requests
 * OS
     
+
+
 ## Outils d'installation
 
 #### Clonez ce repository
@@ -61,7 +34,7 @@ Python <version> main.py
  git clone https://github.com/Miuqnar/Amaral_Ranquim_02_scraping_29092023.git
 ```
 
-#### Dans le dossier do projet créez un environnement virtuel
+#### Dans le dossier do projet, créez un environnement virtuel
 ```bash
 python -m venv .env
 ```
@@ -75,10 +48,29 @@ source .env/bin/activate
 pip install -r requirements.txt
 ```
 
-### Lancher le programme 
-```bash
 
+## Exection du script
+
+*  Dans le terminal, placez-vous dans le dossier scraping avec la command:
+```bash
+cd scraping
 ```
+* Execution du script:
+```bash
+Python <version> main.py
+```
+
+## Fonctionnement du programme  
+
+
+__Lorsque le programme est lancé, l'utilisateur est saisi :
+
+* 1 : Extraire les informations de tous les livres
+* 2 : Télécharger toutes les photos, de tous les livres de chaque catégorie
+* 3 : Quitter le programme
+
+      Choix: <nombre>_
+
 
 
 

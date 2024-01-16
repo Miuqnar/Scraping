@@ -27,3 +27,6 @@ def save_books_csv(books_category: list[dict]) -> str:
                 file.writerow(row_data)
 
     return 'Données enregistrées avec succès'
+
+if __name__ == '__main__':
+    print(save_books_csv('https://books.toscrape.com/'))
