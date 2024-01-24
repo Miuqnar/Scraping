@@ -39,7 +39,7 @@ python -m venv .env
 source .env/bin/activate
 ```
 
-## Exection du script
+## Exécuter le script
 
 *  Dans le terminal, placez-vous dans le dossier scraping avec la command :
 ```bash
